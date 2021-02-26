@@ -1,9 +1,11 @@
 package Tests;
 
+import Model.CartResponse;
 import org.junit.jupiter.api.Test;
 
 import static Config.ConfigHelper.*;
 import static io.restassured.RestAssured.given;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DemoWebShopTests {
 
@@ -33,13 +35,16 @@ public class DemoWebShopTests {
 
     @Test
     public void addToCartWithModelTest() {
-        given()
+        CartResponse response = given()
                 .contentType(getContentType())
                 .cookie(getCookieRequest())
                 .body(getBodyRequest())
                 .when()
                 .post(getRequestUrl())
                 .then()
-                .statusCode(200);
+                .statusCode(200)
+                .extract().as(CartResponse.class);
+
+        assertEquals(response.getSuccess(), true);
     }
 }
