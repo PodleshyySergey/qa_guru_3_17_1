@@ -30,4 +30,16 @@ public class DemoWebShopTests {
                 .then()
                 .statusCode(200);
     }
+
+    @Test
+    public void addToCartWithModelTest() {
+        given()
+                .contentType(getContentType())
+                .cookie(getCookieRequest())
+                .body(getBodyRequest())
+                .when()
+                .post(getRequestUrl())
+                .then()
+                .statusCode(200);
+    }
 }
